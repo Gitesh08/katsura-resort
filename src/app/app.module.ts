@@ -37,6 +37,11 @@ import { HeaderBarComponent } from "./components/admin-dashboard/header-bar/head
 import { GuestTableComponent } from "./components/admin-dashboard/guest-table/guest-table.component";
 import { NotificationPopupComponent } from "./components/notification-popup/notification-popup.component";
 import { EventBookingComponent } from "./components/event-booking/event-booking.component";
+import { AdminOverviewComponent } from './components/admin-dashboard/admin-overview/admin-overview.component';
+import { AdminCalendarComponent } from './components/admin-dashboard/admin-calendar/admin-calendar.component';
+import { AdminServicesComponent } from './components/admin-dashboard/admin-services/admin-services.component';
+import { AdminStatsComponent } from './components/admin-dashboard/admin-stats/admin-stats.component';
+import { AdminSettingsComponent } from './components/admin-dashboard/admin-settings/admin-settings.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +68,11 @@ import { EventBookingComponent } from "./components/event-booking/event-booking.
     GuestTableComponent,
     NotificationPopupComponent,
     EventBookingComponent,
+    AdminOverviewComponent,
+    AdminCalendarComponent,
+    AdminServicesComponent,
+    AdminStatsComponent,
+    AdminSettingsComponent,
   ],
   imports: [
     BrowserModule,

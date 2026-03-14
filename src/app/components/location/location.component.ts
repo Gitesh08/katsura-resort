@@ -7,9 +7,9 @@ import { Component } from "@angular/core";
 })
 export class LocationComponent {
   mapUrl =
-    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5319.013568541845!2d72.72916569853116!3d19.608598641929206!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be70269c5bd33c9%3A0x6eb080e571cd3c50!2sKatwate%20Resort!5e0!3m2!1sen!2sin!4v1743435953487!5m2!1sen!2sin";
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1573.013568541845!2d-122.0842499!3d37.4220656!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sKatsura%20Resort!5e0!3m2!1sen!2sus!4v1743435953487!5m2!1sen!2sus";
   address =
-    "Katwate's Resort, Near Shitla Devi Temple Road, Bokharpada, Kelva Beach Road, Kelva, Palghar, Maharashtra 401404, India";
+    "Katsura's Resort, 123 serene lane, Mountain view, CA 94043, USA";
 
   directions = [
     {

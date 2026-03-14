@@ -7,9 +7,18 @@
         <p>{{ videoDescription }}</p>
       </div>
       <div class="video-container">
-        <iframe
+        <!-- Placeholder -->
+        <div class="video-placeholder" *ngIf="!showVideo" (click)="playVideo()">
+          <img [src]="thumbnailUrl" alt="Video Thumbnail" class="thumbnail-img" loading="lazy" />
+          <div class="play-button">
+            <i class="fas fa-play"></i>
+          </div>
+        </div>
+        
+        <!-- Video Iframe -->
+        <iframe *ngIf="showVideo"
           [src]="videoUrl | safe: 'resourceUrl'"
-          title="Katwate's Resort Video"
+          title="Katsura's Resort Video"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerpolicy="strict-origin-when-cross-origin"

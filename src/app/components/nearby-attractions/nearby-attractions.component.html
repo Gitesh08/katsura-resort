@@ -8,7 +8,7 @@
     <div class="attractions-grid">
       <div class="attraction-card" *ngFor="let attraction of attractions">
         <div class="attraction-image">
-          <img [src]="attraction.image" [alt]="attraction.name" />
+          <img [src]="attraction.image" [alt]="attraction.name" loading="lazy" />
           <div class="attraction-distance">
             <i class="fas fa-walking"></i> {{ attraction.distance }}
           </div>

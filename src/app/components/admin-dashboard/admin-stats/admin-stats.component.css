@@ -1,0 +1,38 @@
+.chart-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  max-width: 100%;
+}
+
+.chart-container h3 {
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+.chart-container canvas {
+  height: 400px !important;
+}
+
+.chart-legend {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.legend-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  display: inline-block;
+}

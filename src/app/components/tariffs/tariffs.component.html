@@ -47,7 +47,7 @@
         (touchend)="onTouchEnd()"
       >
         <div class="tariffs-grid">
-          <div class="tariff-card" *ngFor="let room of getVisibleRooms()">
+          <div class="tariff-card" *ngFor="let room of visibleRooms">
             <div class="image-carousel">
               <div
                 class="carousel-inner"
@@ -57,7 +57,7 @@
               >
                 <div class="carousel-item" *ngFor="let image of room.images">
                   <div class="carousel-item-container">
-                    <img [src]="image" [alt]="room.name" />
+                    <img [src]="image" [alt]="room.name" loading="lazy" />
                     <button
                       class="expand-icon"
                       (click)="openImageModal(image, room.name, $event)"
@@ -125,7 +125,7 @@
 
               <!-- Price -->
               <div class="tariff-price">
-                <span class="price">{{ getCurrentPrice(room) }}</span>
+                <span class="price">{{ room.currentPriceDisplay }}</span>
                 <span class="per-unit" *ngIf="!room.id.includes('couple')"
                   >per person</span
                 >
@@ -152,13 +152,13 @@
                 <div
                   class="tariff-variable-pricing"
                   *ngIf="
-                    getApplicablePricing(room).length > 0 &&
+                    room.applicablePricing && room.applicablePricing.length > 0 &&
                     activeView === 'night'
                   "
                 >
                   <h4>Flexible Pricing:</h4>
                   <ul>
-                    <li *ngFor="let option of getApplicablePricing(room)">
+                    <li *ngFor="let option of room.applicablePricing">
                       <i class="fas fa-tag"></i>
                       ₹{{ option.price }} per person ({{ option.persons }}
                       persons)
@@ -169,17 +169,17 @@
                 <!-- Extra Charges -->
                 <div
                   class="tariff-extra-charges"
-                  *ngIf="hasExtraPersonCharges(room) && activeView === 'night'"
+                  *ngIf="room.hasExtraCharges && activeView === 'night'"
                 >
                   <h4>Extra Guests:</h4>
                   <ul>
-                    <li *ngIf="getCurrentExtraPerson(room)">
+                    <li *ngIf="room.extraPersonCharge !== null && room.extraPersonCharge !== undefined">
                       <i class="fas fa-user-plus"></i>
-                      Adult: ₹{{ getCurrentExtraPerson(room) }}
+                      Adult: ₹{{ room.extraPersonCharge }}
                     </li>
-                    <li *ngIf="getCurrentExtraChild(room)">
+                    <li *ngIf="room.extraChildCharge !== null && room.extraChildCharge !== undefined">
                       <i class="fas fa-child"></i>
-                      Child (4-8yrs): ₹{{ getCurrentExtraChild(room) }}
+                      Child (4-8yrs): ₹{{ room.extraChildCharge }}
                     </li>
                   </ul>
                 </div>
@@ -195,11 +195,11 @@
                 <!-- Inclusions -->
                 <div
                   class="tariff-inclusions"
-                  *ngIf="getCurrentInclusions(room).length > 0"
+                  *ngIf="room.currentInclusions && room.currentInclusions.length > 0"
                 >
                   <h4>Includes:</h4>
                   <ul>
-                    <li *ngFor="let inclusion of getCurrentInclusions(room)">
+                    <li *ngFor="let inclusion of room.currentInclusions">
                       <i [class]="getInclusionIcon(inclusion)"></i>
                       {{ inclusion }}
                     </li>
@@ -239,10 +239,10 @@
       <!-- Indicators -->
       <div
         class="carousel-indicators"
-        *ngIf="getVisibleRooms().length > totalVisibleCards"
+        *ngIf="visibleRooms.length > totalVisibleCards"
       >
         <div
-          *ngFor="let room of getVisibleRooms(); let i = index"
+          *ngFor="let room of visibleRooms; let i = index"
           class="carousel-indicator"
           [class.active]="i === currentCardIndex"
           (click)="goToCard(i)"

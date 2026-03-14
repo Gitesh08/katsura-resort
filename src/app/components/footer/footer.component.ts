@@ -6,30 +6,37 @@ import { Component } from "@angular/core";
 })
 export class FooterComponent {
   navLinks = [
-    { name: "Home", url: "/" },
-    { name: "About", url: "/about" },
-    { name: "Rooms", url: "/rooms" },
-    { name: "Amenities", url: "/amenities" },
-    { name: "Location", url: "/location" },
-    { name: "FAQ", url: "/faq" },
-    { name: "Contact", url: "/contact" },
+    { name: "Home", id: "hero" },
+    { name: "About", id: "about" },
+    { name: "Rooms", id: "tariffs" },
+    { name: "Amenities", id: "gallery" },
+    { name: "Location", id: "location" },
+    { name: "FAQ", id: "faq" },
+    { name: "Contact", id: "contact" },
   ];
   socialLinks = [
     {
       icon: "fa-facebook",
-      url: "https://www.facebook.com/people/Katwates-Resort/100069341206901/",
+      url: "javascript:void(0)",
     },
-    { icon: "fa-instagram", url: "https://instagram.com/katwatesresort" },
+    { icon: "fa-instagram", url: "javascript:void(0)" },
     {
       icon: "fa-brands fa-linkedin",
-      url: "https://twitter.com/katwatesresort",
+      url: "javascript:void(0)",
     },
   ];
+
+  scrollToSection(sectionId: string): void {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
   contactInfo = {
-    phone: "+91 7738052224",
-    email: "katwate01@gmail.com",
+    phone: "+91 9876543210",
+    email: "contact@katsura-resort.com",
     address:
-      "Near Shitla Devi Temple Road, Bokharpada, Kelva Beach Road, Kelva, Palghar, Maharashtra 401404, India",
+      "123 serene lane, Mountain view, CA 94043, USA",
   };
   currentYear = new Date().getFullYear();
 }

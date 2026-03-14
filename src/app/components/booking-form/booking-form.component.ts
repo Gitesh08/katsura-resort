@@ -534,7 +534,7 @@ export class BookingFormComponent implements OnInit, OnDestroy {
 
     let bookingMessage = `New Reservation Request
 
-        Katwate's Resort
+        Katsura's Resort
         ----------------------------------
         Package Type     : ${packageTypeLabel}
         Room / Package   : ${roomTypeLabel}`;

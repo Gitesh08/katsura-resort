@@ -21,6 +21,21 @@
   width: calc(100% - 60px);
 }
 
+.tab-content {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .page-header {
   display: flex;
   justify-content: space-between;
@@ -127,6 +142,11 @@
   max-width: 400px;
 }
 
+.calendar-tab .calendar-container {
+  max-width: 100%;
+  padding: 20px;
+}
+
 .calendar-header {
   display: flex;
   justify-content: space-between;
@@ -163,6 +183,11 @@
   color: white;
 }
 
+.calendar-tab .calendar-day {
+  padding: 15px;
+  font-size: 1rem;
+}
+
 .chart-container {
   background-color: white;
   padding: 10px;
@@ -173,6 +198,11 @@
   max-width: 600px;
 }
 
+.stats-tab .chart-container {
+  max-width: 100%;
+  padding: 20px;
+}
+
 .chart-container h3 {
   margin-bottom: 8px;
   font-size: 1rem;
@@ -180,6 +210,10 @@
 
 .chart-container canvas {
   height: 250px !important;
+}
+
+.stats-tab .chart-container canvas {
+  height: 400px !important;
 }
 
 .chart-legend {

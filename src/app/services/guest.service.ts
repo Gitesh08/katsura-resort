@@ -131,13 +131,13 @@ export class GuestService {
     return this.getGuests().pipe(
       map((guests) => ({
         checkIns: guests.filter(
-          (g) => g.checkIn === today && g.status === "Checked In",
+          (g) => g.checkIn && g.checkIn === today && g.status === "Checked In",
         ).length,
         checkOuts: guests.filter(
-          (g) => g.checkOut === today && g.status === "Checked Out",
+          (g) => g.checkOut && g.checkOut === today && g.status === "Checked Out",
         ).length,
         pending: guests.filter(
-          (g) => g.checkIn === today && g.status === "Confirmed",
+          (g) => g.status === "Confirmed" && g.checkIn && g.checkIn <= today,
         ).length,
       })),
     );
@@ -151,7 +151,7 @@ export class GuestService {
       map((guests) => {
         const bookedRooms = guests
           .filter(
-            (g) => g.checkIn <= today && (!g.checkOut || g.checkOut >= today),
+            (g) => g.checkIn && g.roomType && g.checkIn <= today && (!g.checkOut || g.checkOut >= today) && g.status !== "Checked Out",
           )
           .reduce((acc, g) => {
             const roomType = this.normalizeRoomType(g.roomType).toLowerCase();
@@ -159,9 +159,9 @@ export class GuestService {
             return acc;
           }, {} as any);
         return {
-          single: this.totalRooms.single - (bookedRooms["single room"] || 0),
-          double: this.totalRooms.double - (bookedRooms["double room"] || 0),
-          suite: this.totalRooms.suite - (bookedRooms.suite || 0),
+          single: Math.max(0, this.totalRooms.single - (bookedRooms["single room"] || 0)),
+          double: Math.max(0, this.totalRooms.double - (bookedRooms["double room"] || 0)),
+          suite: Math.max(0, this.totalRooms.suite - (bookedRooms.suite || 0)),
         };
       }),
     );

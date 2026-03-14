@@ -6,6 +6,7 @@ import {
   OnInit,
   HostListener,
   NgZone,
+  ChangeDetectorRef
 } from "@angular/core";
 import { ModalService } from "src/app/services/modal.service";
 import { RoomService } from "src/app/services/room.service";
@@ -34,6 +35,12 @@ interface Room {
       extraChild?: number;
     };
   };
+  currentPriceDisplay?: string;
+  applicablePricing?: Array<{ persons: number; price: number }>;
+  extraPersonCharge?: number | null;
+  extraChildCharge?: number | null;
+  hasExtraCharges?: boolean;
+  currentInclusions?: string[];
 }
 
 @Component({
@@ -52,12 +59,14 @@ export class TariffsComponent implements AfterViewInit, OnInit {
   selectedImageUrl: string | null = null;
   selectedImageAlt: string | null = null;
   rooms: Room[] = [];
+  visibleRooms: Room[] = [];
   specialEvents: string = "";
 
   constructor(
     private modalService: ModalService,
     private ngZone: NgZone,
     private roomService: RoomService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   showLeftScroll = false;
@@ -75,7 +84,7 @@ export class TariffsComponent implements AfterViewInit, OnInit {
       hasACOption: room.hasACOption || false,
     }));
     this.specialEvents = this.roomService.getSpecialEvents();
-    this.calculateVisibleCards();
+    this.updateVisibleRooms();
     this.startAutoScroll();
   }
 
@@ -89,8 +98,9 @@ export class TariffsComponent implements AfterViewInit, OnInit {
       this.calculateVisibleCards();
       this.maxIndex = Math.max(
         0,
-        this.getVisibleRooms().length - this.totalVisibleCards,
+        this.visibleRooms.length - this.totalVisibleCards,
       );
+      this.cdr.detectChanges(); // Fix for NG0100
     }, 100);
   }
 
@@ -100,7 +110,7 @@ export class TariffsComponent implements AfterViewInit, OnInit {
     this.checkScrollButtons();
     this.maxIndex = Math.max(
       0,
-      this.getVisibleRooms().length - this.totalVisibleCards,
+      this.visibleRooms.length - this.totalVisibleCards,
     );
   }
 
@@ -145,18 +155,30 @@ export class TariffsComponent implements AfterViewInit, OnInit {
     return filteredRooms.filter((room) => room.id !== "corporate-event");
   }
 
+  updateRoomCalculations(room: Room) {
+    room.currentPriceDisplay = this.getCurrentPrice(room);
+    room.applicablePricing = this.getApplicablePricing(room);
+    room.extraPersonCharge = this.getCurrentExtraPerson(room);
+    room.extraChildCharge = this.getCurrentExtraChild(room);
+    room.hasExtraCharges = this.hasExtraPersonCharges(room);
+    room.currentInclusions = this.getCurrentInclusions(room);
+  }
+
+  updateVisibleRooms() {
+    this.visibleRooms = this.getVisibleRooms();
+    this.visibleRooms.forEach(room => this.updateRoomCalculations(room));
+    this.calculateVisibleCards();
+    this.maxIndex = Math.max(0, this.visibleRooms.length - this.totalVisibleCards);
+  }
+
   toggleView(view: string) {
     this.activeView = view;
     this.currentCardIndex = 0;
+    this.updateVisibleRooms();
     setTimeout(() => {
       if (this.scrollContainer) {
         this.scrollContainer.nativeElement.scrollLeft = 0;
         this.checkScrollButtons();
-        this.calculateVisibleCards();
-        this.maxIndex = Math.max(
-          0,
-          this.getVisibleRooms().length - this.totalVisibleCards,
-        );
       }
     }, 0);
   }
@@ -314,6 +336,7 @@ export class TariffsComponent implements AfterViewInit, OnInit {
 
   toggleAC(room: Room, isAC: boolean) {
     room.acSelected = isAC;
+    this.updateVisibleRooms();
   }
 
   getCurrentPrice(room: Room) {

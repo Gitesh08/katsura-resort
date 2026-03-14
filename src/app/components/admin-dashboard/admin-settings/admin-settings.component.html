@@ -1,0 +1,76 @@
+<div class="settings-grid">
+  <div class="settings-card">
+    <h3 class="card-title"><span class="material-icons">account_circle</span> Admin Profile</h3>
+    <p><strong>Name:</strong> {{ userInfo.name }}</p>
+    <p><strong>Email:</strong> {{ userInfo.email || 'admin@katsura-resort.com' }}</p>
+    <p><strong>Role:</strong> <span class="role-badge">{{ userInfo.role }}</span></p>
+  </div>
+
+  <div class="settings-card">
+    <h3 class="card-title"><span class="material-icons">security</span> System Status</h3>
+    <p><strong>Environment:</strong> Production</p>
+    <p><strong>Database:</strong> Firebase Cloud Firestore</p>
+    <p><strong>Last Sync:</strong> <span class="material-icons sync-icon">check_circle</span> Just now</p>
+  </div>
+</div>
+
+<div class="settings-actions">
+  <button class="add-button" (click)="openAddStaffModal()">
+    <span class="material-icons">add</span>
+    <span>Add Staff</span>
+  </button>
+</div>
+
+<!-- Add Staff Modal -->
+<div class="modal-backdrop" *ngIf="showAddStaffModal">
+  <div class="modal">
+    <h2>Add New Staff</h2>
+    <form (ngSubmit)="addStaff(staffForm)" #staffForm="ngForm">
+      <div class="form-group">
+        <label>Name</label>
+        <input
+          type="text"
+          placeholder="Full Name"
+          name="name"
+          [(ngModel)]="newStaff.name"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input
+          type="email"
+          placeholder="Email"
+          name="email"
+          [(ngModel)]="newStaff.email"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label>Role</label>
+        <select name="role" [(ngModel)]="newStaff.role" required>
+          <option value="" disabled selected>Select Role</option>
+          <option>Receptionist</option>
+          <option>Manager</option>
+          <option>Cleaner</option>
+        </select>
+      </div>
+      <div class="modal-actions">
+        <button
+          type="button"
+          class="popup-btn cancel-btn"
+          (click)="closeAddStaffModal()"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="popup-btn"
+          [disabled]="staffForm.invalid"
+        >
+          Add
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

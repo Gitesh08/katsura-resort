@@ -1,12 +1,12 @@
-<footer class="footer">
+<footer class="footer" id="contact">
   <div class="container">
     <div class="footer-content">
       <div class="footer-info">
         <div class="footer-logo">
-          <img src="/assets/images/logo.png" alt="Katwate's Resort Logo" />
+          <img src="/assets/images/logo.png" alt="Katsura's Resort Logo" loading="lazy" />
         </div>
         <p>
-          Experience the perfect beachside getaway at Katwate's Resort, located
+          Experience the perfect beachside getaway at Katsura's Resort, located
           at the beautiful Kelva Beach.
         </p>
         <div class="footer-contact">
@@ -30,7 +30,7 @@
           <h3>Quick Links</h3>
           <ul>
             <li *ngFor="let link of navLinks">
-              <a [href]="link.url">{{ link.name }}</a>
+              <a (click)="scrollToSection(link.id)" style="cursor: pointer;">{{ link.name }}</a>
             </li>
           </ul>
         </div>
@@ -42,7 +42,6 @@
               *ngFor="let social of socialLinks"
               [href]="social.url"
               class="social-icon"
-              target="_blank"
             >
               <i class="fab {{ social.icon }}"></i>
             </a>
@@ -52,7 +51,7 @@
     </div>
 
     <div class="footer-bottom">
-      <p>© {{ currentYear }} Katwate's Resort. All rights reserved.</p>
+      <p>© {{ currentYear }} Katsura's Resort. All rights reserved.</p>
     </div>
   </div>
 </footer>

@@ -18,8 +18,8 @@ export class GalleryComponent implements OnInit {
       category: "outdoors",
     },
     {
-      url: "/assets/images/resort-entrance-2.jpg",
-      alt: "Resort Entrance 2",
+      url: "/assets/images/resort-lounge.jpg",
+      alt: "Resort Lounge",
       category: "outdoors",
     },
     {

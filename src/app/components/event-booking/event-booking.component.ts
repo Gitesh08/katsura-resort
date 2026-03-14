@@ -265,7 +265,7 @@ export class EventBookingComponent implements OnInit, OnDestroy {
     this.isSubmitting = true;
     const formValue = this.eventForm.value;
 
-    let bookingMessage = `New Event Enquiry from Katwate's Resort Website:
+    let bookingMessage = `New Event Enquiry from Katsura's Resort Website:
 * Event Type: ${formValue.eventType.charAt(0).toUpperCase() + formValue.eventType.slice(1)}
 * Start Date: ${formValue.checkInDate}`;
     if (formValue.checkOutDate) {

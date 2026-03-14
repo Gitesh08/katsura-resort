@@ -36,7 +36,7 @@
             [ngClass]="{ center: isCenterImage(i) }"
           >
             <div class="gallery-item-container">
-              <img [src]="image.url" [alt]="image.alt" />
+              <img [src]="image.url" [alt]="image.alt" loading="lazy" />
               <button
                 class="expand-icon"
                 (click)="openImageModal(image.url, image.alt)"
